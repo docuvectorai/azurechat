@@ -124,7 +124,8 @@ async function executeFunction(props: {
     const response = await fetch(functionModel.endpoint, requestInit);
 
     if (!response.ok) {
-      return `There was an error calling the api: ${response.statusText}`;
+      const errorBody = await response.text();
+      return `Error calling API: ${response.status} ${response.statusText}. Body: ${errorBody}`;
     }
     const result = await response.json();
 
